@@ -8,7 +8,6 @@ const HomePage: NextPage = () => {
   return (
     <>
       <MainLayout title='Listado de Pokemons'>
-        <h1>Hola mundo</h1>
         <Button color='gradient' >
           Click here
         </Button>
