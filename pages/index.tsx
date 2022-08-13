@@ -52,7 +52,6 @@ export const getStaticProps: GetStaticProps = async (ctx) => {
       }
     })
 
-    console.log(pokemons);
 
     return {
       props: {

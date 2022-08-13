@@ -1,20 +1,28 @@
 import { NextPage, GetStaticProps, GetStaticPaths } from 'next';
-import React from 'react';
+import React, { useState } from 'react';
 import { MainLayout } from '../../components/layout';
 import pokeApi from '../../api/pokeApi';
-import { PokemonDetail, Sprites } from '../../interfaces/pokemon-detail';
+import { PokemonDetail } from '../../interfaces/pokemon-detail';
 import { Button, Card, Container, Grid, Text } from '@nextui-org/react';
-import Head from 'next/head';
 import Image from 'next/image';
+import localFavorites from '../../utils/local-favorites';
 
 interface Props {
     pokemon: PokemonDetail;
 }
 
 const PokemonPage:NextPage<Props> = ({ pokemon }) => {
+    
+    const [isInFavorites, setIsInFavorites ] = useState( localFavorites.existPokemonInFavorites(pokemon.id) );
+    
+    const onToogleFavorite = () => {
+        localFavorites.toogleFavorite(pokemon.id);
+        setIsInFavorites( !isInFavorites );
+    }
+
 
     return (
-        <MainLayout title='Listado de Pokemons'>
+        <MainLayout title={ `Pokemon | ${pokemon.name}` }>
             <Grid.Container css={{marginTop: '5px'}} gap={2}>
                 <Grid xs={12} sm={4}>
                     <Card isHoverable css={{ padding: '30px' }}>
@@ -35,11 +43,13 @@ const PokemonPage:NextPage<Props> = ({ pokemon }) => {
                         
                             <Button
                                 color='gradient'
-                                ghost
+                                ghost={ !isInFavorites }
+                                onClick={onToogleFavorite}
                             >
-                                Favorite
+                                { isInFavorites ? 'Remove from favorites' : 'Add to favorites' }
                             </Button>
                         </Card.Header>
+
                         <Card.Body>
                             <Text size={30}>Sprites</Text> 
                             <Container direction='row' display='flex' gap={0} justify='space-evenly'>
