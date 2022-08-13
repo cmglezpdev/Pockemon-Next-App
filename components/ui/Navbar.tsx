@@ -1,5 +1,6 @@
-import { Spacer, Text, useTheme } from '@nextui-org/react'
+import { Link, Spacer, Text, useTheme } from '@nextui-org/react'
 import Image from 'next/image';
+import NextLink from 'next/link';
 import React from 'react'
 
 export const Navbar = () => {
@@ -16,20 +17,27 @@ export const Navbar = () => {
             padding: '0 20px',
             backgroundColor: theme?.colors.gray400.value,
         }}>
-
-            <Image 
-                src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/25.png"
-                alt="Icono de App"
-                width={70}
-                height={70}
-            />
-        
-            <Text  color='white' h2>P</Text>
-            <Text  color='white' h3>okémon</Text>
+                <Image 
+                    src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/25.png"
+                    alt="Icono de App"
+                    width={70}
+                    height={70}
+                />
+            
+            <NextLink href={'/'} passHref>
+                <Link>
+                    <Text  color='white' h2>P</Text>
+                    <Text  color='white' h3>okémon</Text>
+                </Link>
+            </NextLink>
             
             <Spacer css={{flex: 1}}/>
 
-            <Text  color='white'>Favoritos</Text>
+            <NextLink href={'/favorites'} passHref>
+                <Link>
+                    <Text  color='white'>Favoritos</Text>
+                </Link>
+            </NextLink>
         
         </div>
     )
