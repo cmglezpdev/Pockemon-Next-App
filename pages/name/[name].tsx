@@ -10,12 +10,13 @@ import { PokemonDetail } from '../../interfaces/pokemon-detail';
 import { MainLayout } from '../../components/layout';
 import pokeApi from '../../api/pokeApi';
 import localFavorites from '../../utils/local-favorites';
+import { PokemonListResponse } from '../../interfaces/pokemon-list';
 
 interface Props {
     pokemon: PokemonDetail;
 }
 
-const PokemonPage:NextPage<Props> = ({ pokemon }) => {
+const PokemonByName:NextPage<Props> = ({ pokemon }) => {
     
     const [isInFavorites, setIsInFavorites ] = useState( localFavorites.existPokemonInFavorites(pokemon.id) );
     
@@ -104,27 +105,28 @@ const PokemonPage:NextPage<Props> = ({ pokemon }) => {
     )
 };
 
-export default PokemonPage;
+export default PokemonByName;
 
-// Se usa en las paguinas que tienen rutas dinamicas
-export const getStaticPaths:GetStaticPaths = async(ctx) => {
+export const getStaticPaths: GetStaticPaths = async(contex) => {
 
-    const paths = [...Array(151)]
-                    .map((value, index) => ({
-                            params: {id: `${index + 1}`}
-                        }));
+    const { data } = await pokeApi.get<PokemonListResponse>('/pokemon?limit=151');
+
+    const paths = data.results.map( ({ name }) => ({
+        params: { name }
+    }) )
 
     return {
         paths,
         fallback: false
     }
+
 }
 
-export const getStaticProps:GetStaticProps = async (ctx) => {
+export const getStaticProps: GetStaticProps = async (context) => {
 
-    const { params } = ctx;
-    const { id } = params as {id: string};
-    const { data } = await pokeApi.get<PokemonDetail>(`/pokemon/${id}`);
+    const { params } = context;
+    const { name } = params as {name: string};
+    const { data } = await pokeApi.get<PokemonDetail>(`/pokemon/${name}`);
 
     const pokemon = {
         id: data.id,
@@ -132,7 +134,7 @@ export const getStaticProps:GetStaticProps = async (ctx) => {
         sprites: data.sprites
     }
 
-    return { 
+    return {
         props: {
             pokemon
         }
