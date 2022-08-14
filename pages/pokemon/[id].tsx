@@ -108,8 +108,7 @@ export default PokemonPage;
 // Se usa en las paguinas que tienen rutas dinamicas
 export const getStaticPaths:GetStaticPaths = async(ctx) => {
 
-    const paths = [...Array(151)]
-                    .map((value, index) => ({
+    const paths = [...Array(151)].map((value, index) => ({
                             params: {id: `${index + 1}`}
                         }));
 
@@ -128,6 +127,7 @@ export const getStaticProps:GetStaticProps = async (ctx) => {
     return { 
         props: {
             pokemon
-        }
+        },
+        revalidate: 86400,
     }
 }
