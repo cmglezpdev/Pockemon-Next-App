@@ -11,8 +11,6 @@ interface Props {
 
 const HomePage: NextPage<Props> = ({ pokemons }) => {
 
-  console.log(pokemons)
-
   return (
     <>
       <MainLayout title='Listado de Pokemons'>
@@ -39,7 +37,7 @@ export default HomePage;
 // a excepcion de lo que se está retornando
 
 // Esta función siempre de debería usar cuando queremos que todo el contenido de cree en build time
-// ya que esto seria contenido que se ejecuta la iniciar por primera vez la paguina y nunca va a acambiar
+// ya que esto seria contenido que se ejecuta la iniciar por primera vez la paguina y nunca va a cambiar
 export const getStaticProps: GetStaticProps = async (ctx) => {
 
     const { data } = await pokeApi.get<PokemonListResponse>('/pokemon?limit=151'); 
