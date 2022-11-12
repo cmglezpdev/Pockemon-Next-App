@@ -1,5 +1,5 @@
 # Pokemon App
-## Consulta información relevante de todos los pokemones
+## Check relevant information about all pokemons
 
 
 ### Screenshot
@@ -7,11 +7,10 @@
 ![](./screenshot.png)
 
 
-### Ver aplicación
+### See application
 
-Si quieres ver la aplicación ya en producción puedes verlo [aquí](https://pockemon-next-app.vercel.app/)
-
-Si lo que quieres es usar la aplicación en desarrollo puedes hacerlo ejecutando los siguientes comandos:
+If you want to see the application in production you can see it [here](https://pockemon-next-app.vercel.app/)
+For to use the app in development you can do it executing the follow commands:
 
 ```bash
 # install dependencies
@@ -21,7 +20,7 @@ npm install # or yarn add
 npm run dev # or yarn dev
 ```
 
-También puedes crear el `build` de producción y ejecutarlo con los comandos
+Also you can to create the `build` of production and run it with the commands:
 
 ```bash
 npm run build # or yarn build
